@@ -1,0 +1,60 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Bar chart with text labels. Set domain to make the frame cover the labels.",
+  "data": {
+    "url": "Annual_Regional_Train_Station_Entries_2023-24.csv"
+  },
+  "params": [
+    {
+      "name": "Patronage_Above",
+      "value": 0,
+      "bind": {
+      "input": "range",
+      "min": 0,
+      "max": 510000,
+      "step": 10000,
+      "name": "Lowest Patronage: "
+      }
+      },
+      {
+        "name": "Patronage_Below",
+        "value": 0,
+        "bind": {
+        "input": "range",
+        "min": 0,
+        "max": 6000000,
+        "step": 10000,
+        "name": "Highest Patronage: "
+        }
+        }
+  ],
+  "transform":[
+    {"filter": "datum.Pax_annual > Patronage_Above"},
+    {"filter": "datum.Pax_annual < Patronage_Below"}
+  ],
+
+  "encoding": {
+ "x": {"field": "Pax_annual", "type": "quantitative",  "title":"Passanger numbers"},
+ "y": {"field": "Stop_name", "type": "nominal", "sort":{"op":"count","field":"Pax_annual","order":"ascending"}, "title":"Station"},
+    "tooltip": [
+    {"field": "Stop_name", "type": "nominal", "title":"Station"},
+    {"field": "Pax_annual", "type": "quantitative", "title":"Passanger numbers"}      
+    ]
+
+  },
+  "layer": [{
+    "mark": "bar",
+    "encoding": {"color":{"value": "#7D4296" }}
+  }, {
+    "mark": {
+      "type": "text",
+      "align": "left",
+      "baseline": "middle",
+      "dx": 3
+    },
+    "encoding": {
+      "text": {"field": "Pax_annual", "type": "quantitative","format":".4s"}
+    }  
+  }]
+
+}
