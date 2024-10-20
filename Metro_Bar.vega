@@ -1,13 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "Bar chart with text labels. Set domain to make the frame cover the labels.",
+  "title": "Metro",
+  "config": {"numberFormat": ".3s"},
   "data": {
     "url": "Annual_Metropolitan_Train_Station_Entries_2023-24_Simplified.csv"
   },
   "params": [
     {
       "name": "Patronage_Above",
-      "value": 0,
+      "value": 1110000,
       "bind": {
       "input": "range",
       "min": 0,
@@ -18,7 +19,7 @@
       },
       {
         "name": "Patronage_Below",
-        "value": 0,
+        "value": 21345200,
         "bind": {
         "input": "range",
         "min": 0,
@@ -27,17 +28,19 @@
         "name": "Highest Patronage: "
         }
         }
+
+
   ],
   "transform":[
     {"filter": "datum.Pax_annual > Patronage_Above"},
     {"filter": "datum.Pax_annual < Patronage_Below"}
   ],
   "encoding": {
-    "x": {"field": "Pax_annual", "type": "quantitative","title":"Passanger Number"},
-    "y": {"field": "Stop_name", "type": "nominal","sort":{"field":"Pax_annual"},"title":"Station"},
+    "x": {"field": "Pax_annual", "type": "quantitative","title":"Annual Passanger Number"},
+    "y": {"field": "Stop_name", "type": "nominal","sort":{"field":"Pax_annual"},"title":"Metro Station"},
     "tooltip": [
-      {"field": "Stop_name", "type": "nominal", "title":"Station"},
-      {"field": "Pax_annual", "type": "quantitative", "title":"Passanger numbers"}
+      {"field": "Stop_name", "type": "nominal", "title":"Metro Station"},
+      {"field": "Pax_annual", "type": "quantitative", "title":"Annual Passanger numbers"}
     ]
   },
   "layer": [{
@@ -51,7 +54,7 @@
       "dx": 3
     },
     "encoding": {
-      "text": {"field": "Pax_annual", "type": "quantitative","format":".4s"}
+      "text": {"field": "Pax_annual", "type": "quantitative","format":".3s"}
     }
   }]
 }

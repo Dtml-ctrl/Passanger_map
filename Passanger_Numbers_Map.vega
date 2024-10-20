@@ -1,9 +1,13 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width":400,
+    "width":800,
     "height":400,
     "title": "Number of passanger entries per station in the state of Victoria",
-    "projection":{"type": "equirectangular"},
+    "projection":{
+        "type": "equirectangular"
+
+
+    },
     "layer": [
         {
             "data": {
@@ -25,7 +29,7 @@
                 "format": {"type": "csv"}
             },
             "mark": {
-                "type":"circle", "tooltip": {"content": "data"},"color":"blue"
+                "type":"circle","color":"blue","opacity":0.7
             },
             "projection": {
                 "type":"equirectangular"
@@ -37,8 +41,17 @@
                     "field": "Pax_annual",
                     "type": "quantitative",
                     "title": "Passanger Numbers",
-                    "scale": {"domain": [50,20345200]}
-                }
+                    "scale": {
+                        "type": "threshold",
+                        "domain": [10000,100000,500000,1000000,5000000],
+                        "range":[15,45,75,105,195]
+                    },
+                    "legend": {"format": ".1s"} 
+                },
+                "tooltip":  [
+                    {"field": "Stop_name", "type": "nominal", "title":"Station"},
+                    {"field": "Pax_annual", "type": "quantitative", "format":".4s"}
+                ]
             }
     
         }
@@ -48,7 +61,7 @@
                 "url": "Annual_Regional_Train_Station_Entries_2023-24.csv",
                 "format": {"type": "csv"}
             },
-            "mark": {"type":"circle", "tooltip": {"content": "data"},"color":"purple"},
+            "mark": {"type":"circle","color":"purple","opacity":0.7},
             "encoding": {
                 "longitude": {"field": "Stop_long","type":"quantitative"},
                 "latitude": {"field": "Stop_lat","type":"quantitative"},
@@ -56,8 +69,16 @@
                     "field": "Pax_annual",
                     "type": "quantitative",
                     "title": "Passanger Numbers",
-                    "scale": {"domain": [50,20345200]}
-                }
+                    "scale": {
+                        "type":"threshold",
+                        "domain": [10000,100000,500000,1000000,5000000],
+                        "range":[20,60,100,140,200]
+                    }
+                },
+                "tooltip": [
+                    {"field": "Stop_name", "type": "nominal"},
+                    {"field": "Pax_annual", "type": "quantitative", "format":".4s"}
+                ]
   
              }
          }
