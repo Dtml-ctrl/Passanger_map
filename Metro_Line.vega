@@ -1,0 +1,44 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "Annual_Metropolitan_Train_Station_Entries_2023-24_Simplified.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {
+      "joinaggregate": [{
+        "op": "mean",
+        "field": "Pax_annual",
+        "as": "Pax_Mean"
+      }
+      ]
+    },
+    {"joinaggregate":[{
+      "op": "min",
+      "field": "Pax_annual",
+      "as": "Pax_Min"
+    }
+    ]
+    },
+    {"joinaggregate":[{
+      "op": "max",
+      "field": "Pax_annual",
+      "as": "Pax_Max"
+    }
+    ]
+    }
+  ],
+  "layer":[
+    {
+    "mark": "line",
+    "encoding": {
+        "x":{
+            "field":"Pax_annual",
+            "type": "quantitative",
+            "title":"Metro passanger numbers range",
+            "scale":{"domain": [0,25000000]}
+        }
+        }
+    }
+    ]
+}
